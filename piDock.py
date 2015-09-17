@@ -21,7 +21,7 @@ def turnDirection(chead,dhead):
 			return("Left")
 		else:
 			return("Right")   
-#Functions to read the bearing from 
+#Functions to read the bearing from the digital compass.
 def read_byte(adr):
     return bus.read_byte_data(address, adr)
 def read_word(adr):
@@ -52,36 +52,31 @@ def getBearing():
         
 
 
-#GPS Shenanigans
+#GPS Functions to get location, time, speed, etc
 class GpsController(threading.Thread):
     def __init__(self):
         threading.Thread.__init__(self)
         self.gpsd = gps(mode=WATCH_ENABLE) #starting the stream of info
         self.running = False
-    
     def run(self):
         self.running = True
         while self.running:
             # grab EACH set of gpsd info to clear the buffer
             self.gpsd.next()
-
     def stopController(self):
         self.running = False
-  
     @property
     def fix(self):
         return self.gpsd.fix
-
     @property
     def utc(self):
         return self.gpsd.utc
-
     @property
     def satellites(self):
         return self.gpsd.satellites
 
+#Haversine function to return heading and distance between two coordinates
 def haversine(lat1, lon1, lat2, lon2):
- 
   R = 6372.8 # Earth radius in kilometers
   dLat = radians(lat2 - lat1)
   dLon = radians(lon2 - lon1)
@@ -89,7 +84,6 @@ def haversine(lat1, lon1, lat2, lon2):
   lat2 = radians(lat2)
   a = sin(dLat/2)**2 + cos(lat1)*cos(lat2)*sin(dLon/2)**2
   c = 2*asin(sqrt(a))
- 
   return R * c * 1000
 
 def bearing(lat1, lon1, lat2, lon2):
@@ -98,15 +92,14 @@ def bearing(lat1, lon1, lat2, lon2):
 	rlon1 = math.radians(lon1)
 	rlon2 = math.radians(lon2)
 	dlon = math.radians(lon2-lon1)
-
 	b = math.atan2(math.sin(dlon)*math.cos(rlat2),math.cos(rlat1)*math.sin(rlat2)-math.sin(rlat1)*math.cos(rlat2)*math.cos(dlon)) # bearing calc
 	bd = math.degrees(b)
 	br,bn = divmod(bd+360,360) # the bearing remainder and final bearing
-	
 	return bn
 
 if __name__ == '__main__':
 	#Launch GPSD
+	print("Launching gpsd...")
 	os.system("sudo gpsd /dev/ttyAMA0 -F /var/run/gpsd.sock")
 	time.sleep(2)
 	# create the controller
