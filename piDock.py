@@ -9,9 +9,21 @@ import math
 bus = smbus.SMBus(1)
 address = 0x1e
 
+#Function that returns the shortest distance to turn given a current and desired bearing.
+def turnDirection(chead,dhead):
+	if (chead > dhead):
+		if ((chead-dhead) > 180):
+			return("Right")
+		else:
+			return("Left")
+	if (chead < dhead):
+		if ((dhead-chead) >= 180):
+			return("Left")
+		else:
+			return("Right")   
+#Functions to read the bearing from 
 def read_byte(adr):
     return bus.read_byte_data(address, adr)
-
 def read_word(adr):
     high = bus.read_byte_data(address, adr)
     low = bus.read_byte_data(address, adr+1)
@@ -25,7 +37,6 @@ def read_word_2c(adr):
         return val
 def write_byte(adr, value):
     bus.write_byte_data(address, adr, value)
-
 def getBearing():
 	write_byte(0, 0b01110000) # Set to 8 samples @ 15Hz
         write_byte(1, 0b00100000) # 1.3 gain LSb / Gauss 1090 (default)
