@@ -388,7 +388,9 @@ if __name__ == '__main__':
 				print "Entering autonomous mode, waiting for GPS lock to find closest waypoint in list"
 				while(gpsc.fix.mode!=3):
 					time.sleep(1)
-				waypoint = findClosest()
+				#waypoint = findClosest()
+				waypoint = 0
+				distance=20
 				os.system('clear')
 				while True:
 					dlat = float(str(root.Document.Folder.Placemark[waypoint].Point.coordinates).split(",")[1])
@@ -396,7 +398,8 @@ if __name__ == '__main__':
 					currentBearing = getBearing()
 					clat = gpsc.fix.latitude
 					clon = gpsc.fix.longitude
-					distance = int(haversine(clat,clon,dlat,dlon))
+					distance-=1
+					#distance = int(haversine(clat,clon,dlat,dlon))
 					print "============================================================"
 					print "raftBerry Autonomous mode"
 					print "============================================================"
