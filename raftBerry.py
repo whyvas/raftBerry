@@ -67,6 +67,7 @@ def motorsOff(channel):
 
 #Turn off motors, cleanup GPIO and shutdown the pi
 def emergencyStop(channel):
+	global leftspeed,rightspeed
 	print "Emergency stop button pressed"
 	leftspeed=0
 	rightspeed=0
