@@ -307,8 +307,8 @@ def bearing(lat1, lon1, lat2, lon2):
 def findClosest():
         closestd = 10000000
         closesti = 0
-        clon = 46.218538
-        clat = -76.126735
+        clon = gpsc.fix.latitude
+        clat = gpsc.fix.longitude
         for x in range(0,len(root.Document.Folder.Placemark)):
                 lat = float(str(root.Document.Folder.Placemark[x].Point.coordinates).split(",")[0])
                 lon = float(str(root.Document.Folder.Placemark[x].Point.coordinates).split(",")[1])
@@ -322,19 +322,17 @@ def findClosest():
         return closesti
 
 #Read and parse KML file for GPS tour.
+print "Loading waypoints from file"
 root = parser.fromstring(open('LacLong.kml', 'r').read())
-
-
-
-
-
+#Launch GPSD
+print("Launching gpsd...")
+os.system("sudo gpsd /dev/ttyAMA0 -F /var/run/gpsd.sock")
+time.sleep(2)
+	
+#Main program loop
 if __name__ == '__main__':
-	#Launch GPSD
-	print("Launching gpsd...")
-	os.system("sudo gpsd /dev/ttyAMA0 -F /var/run/gpsd.sock")
-	time.sleep(2)
 	gpsc = GpsController()
-	print "Loading waypoints from file"
+	
 	#Add kml file loading into linked list here
 	try:
 		gpsc.start()
@@ -367,6 +365,7 @@ if __name__ == '__main__':
 					print "GPS Status: 2D Lock"
 				elif gpsc.fix.mode == 3:
 					print "GPS Status: 3D Lock"
+				print "Closest waypoint: " +str(findClosest())
 				print "============================================================"
 				time.sleep(1)
 				os.system('clear') 
