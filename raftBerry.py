@@ -343,6 +343,7 @@ if __name__ == '__main__':
 				while(gpsc.fix.mode!=3):
 					time.sleep(1)
 				waypoint = findClosest()
+				os.system('clear')
 				while True:
 					dlat = float(str(root.Document.Folder.Placemark[waypoint].Point.coordinates).split(",")[1])
 					dlon = float(str(root.Document.Folder.Placemark[waypoint].Point.coordinates).split(",")[0])
