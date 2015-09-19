@@ -285,37 +285,44 @@ if __name__ == '__main__':
 	os.system("sudo gpsd /dev/ttyAMA0 -F /var/run/gpsd.sock")
 	time.sleep(2)
 	# create the controller
-	gpsc = GpsController() 
+	gpsc = GpsController()
+	print "Loading waypoints from file"
+	#Add kml file loading into linked list here
 	try:
 	# start controller
 		gpsc.start()
 		while True:
-			dlat =  46.219173
-			dlon = -76.125144
-			currentBearing = getBearing()
-			clat = gpsc.fix.latitude
-			clon =  gpsc.fix.longitude
-			print "Current Lat: " +str(clat)
-			print "Current Lon: " +str(clon)
-			print "Next Lat: " +str(dlat)
-			print "Next Lon: " +str(dlon)
-			print "Distance remaining: " + str(int(haversine(clat,clon,dlat,dlon)))+ "m"
-			print "Current Bearing: " + str(currentBearing)
-			print "Desired Bearing: " + str(bearing(clat, clon,dlat, dlon))
-			print "Turn Offset: " + str(turnOffset(currentBearing,bearing(clat,clon,dlat,dlon)))
-			print "UTC Time: ", gpsc.utc[11:-5]
-			print "GPS Error: "+ str(gpsc.fix.epx) + "m"
-			if gpsc.fix.mode == 0:
-				print "No mode"
-			elif gpsc.fix.mode == 1:
-				print "No Fix"
-			elif gpsc.fix.mode == 2:
-				print "2D Lock"
-			elif gpsc.fix.mode == 3:
-				print "3D Lock"
-			#print "sats ", gpsc.satellites
-			time.sleep(1)
-			os.system('clear') 
+			#Replace true below with manual/auto switch check
+			while True:
+				dlat =  46.219173
+				dlon = -76.125144
+				currentBearing = getBearing()
+				clat = gpsc.fix.latitude
+				clon =  gpsc.fix.longitude
+				print "============================================================"
+				print "Autonomous mode
+				print "============================================================"
+				print "Current Lat: " +str(clat)
+				print "Current Lon: " +str(clon)
+				print "Next Lat: " +str(dlat)
+				print "Next Lon: " +str(dlon)
+				print "Distance remaining: " + str(int(haversine(clat,clon,dlat,dlon)))+ "m"
+				print "Current Bearing: " + str(currentBearing)
+				print "Desired Bearing: " + str(bearing(clat, clon,dlat, dlon))
+				print "Turn Offset: " + str(turnOffset(currentBearing,bearing(clat,clon,dlat,dlon)))
+				print "UTC Time: ", gpsc.utc[11:-5]
+				print "GPS Error: "+ str(gpsc.fix.epx) + "m"
+				if gpsc.fix.mode == 0:
+					print "No mode"
+				elif gpsc.fix.mode == 1:
+					print "No Fix"
+				elif gpsc.fix.mode == 2:
+					print "2D Lock"
+				elif gpsc.fix.mode == 3:
+					print "3D Lock"
+				#print "sats ", gpsc.satellites
+				time.sleep(1)
+				os.system('clear') 
 
 #Ctrl C
 	except KeyboardInterrupt:
