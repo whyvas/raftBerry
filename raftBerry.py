@@ -325,14 +325,13 @@ def findClosest():
         return closesti
 #Set the speed and direction based on turn offset
 def autoSpeed(turn):
+	global leftspeed,rightspeed
 	if (turn > 150):
 		leftspeed=3
 		rightspeed=-3
 	if (turn > 120 and turn <= 150):
 		leftspeed=3
 		rightspeed=-2
-		print "poooooooooooooooooooooooooooooo"
-		time.delay(3)
 	if (turn > 90 and turn <= 120):
 		leftspeed=3
 		rightspeed=-1
