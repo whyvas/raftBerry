@@ -365,7 +365,12 @@ def autoSpeed(turn):
 	if (turn < -150 ):
 		leftspeed=-3
 		rightspeed=3
-	setSpeed()
+	if (waypoint < (len(root.Document.Folder.Placemark)-1)):
+		setSpeed()
+	else:
+		leftspeed=0
+		rightspeed=0
+		setSpeed()
 
 #Read and parse KML file for GPS tour.
 print "Loading waypoints from file"
