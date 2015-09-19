@@ -10,24 +10,41 @@ GPIO.setmode(GPIO.BCM)
 bus = smbus.SMBus(1)
 address = 0x1e
 
+#GPIO pin definitions
+AUTOMAN = 27
+PORTDIR = 23
+PORTLOW = 24
+PORTMED = 25
+PORTHIGH = 8
+STARDIR = 7
+STARLOW = 11
+STARMED = 9
+STARHIGH = 10
+JOYUP = 17
+JOYDOWN = 3
+JOYLEFT = 2
+JOYRIGHT = 4
+SHUTDOWN = 22
+
+
 #Setup GPIO input pins
-#GPIO.setup(2, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-#GPIO.setup(3, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-GPIO.setup(4, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-GPIO.setup(27, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-GPIO.setup(22, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-#GPIO.setup(27, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(JOYLEFT, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(JOYDOWN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(JOYRIGHT, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(JOYUP, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(AUTOMAN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(SHUTDOWN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
 
 #Setup GPIO output pins
-GPIO.setup(10, GPIO.OUT, pull_up_down=GPIO.PUD_UP)
-GPIO.setup(9, GPIO.OUT, pull_up_down=GPIO.PUD_UP)
-GPIO.setup(11, GPIO.OUT, pull_up_down=GPIO.PUD_UP)
-GPIO.setup(7, GPIO.OUT, pull_up_down=GPIO.PUD_UP)
-GPIO.setup(8, GPIO.OUT, pull_up_down=GPIO.PUD_UP)
-GPIO.setup(25, GPIO.OUT, pull_up_down=GPIO.PUD_UP)
-GPIO.setup(24, GPIO.OUT, pull_up_down=GPIO.PUD_UP)
-GPIO.setup(23, GPIO.OUT, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(STARHIGH, GPIO.OUT, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(STARMED, GPIO.OUT, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(STARLOW, GPIO.OUT, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(STARDIR, GPIO.OUT, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(PORTHIGH, GPIO.OUT, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(PORTMED, GPIO.OUT, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(PORTLOW, GPIO.OUT, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(PORTDIR, GPIO.OUT, pull_up_down=GPIO.PUD_UP)
 
 #Emergency shutdown
 def motorsOff(channel): #turn off all relays when exiting
