@@ -339,8 +339,9 @@ if __name__ == '__main__':
 		while True:
 			#Replace true below with manual/auto switch check
 			while True:
-				print "Entering autonomous mode, delaying 3s for GPS to settle to find closest waypoint in list"
-				time.sleep(3)
+				print "Entering autonomous mode, waiting for GPS lock to find closest waypoint in list"
+				while(gpsc.fix.mode!=3)
+					time.sleep(1)
 				waypoint = findClosest()
 				while True:
 					dlat = float(str(root.Document.Folder.Placemark[waypoint].Point.coordinates).split(",")[1])
@@ -353,12 +354,12 @@ if __name__ == '__main__':
 					print "============================================================"
 					print "Current Lat: " +str(clat)
 					print "Current Lon: " +str(clon)
-					print "Waypoint index: " + str(waypoint)
-					print "Next Lat: " +str(dlat)
-					print "Next Lon: " +str(dlon)
-					print "Distance remaining: " + str(int(haversine(clat,clon,dlat,dlon)))+ "m"
+					print "Waypoint Lat: " +str(dlat)
+					print "Waypoint Lon: " +str(dlon)
+					print "Waypoint Index: " + str(waypoint)
+					print "Waypoint Distance: " + str(int(haversine(clat,clon,dlat,dlon)))+ "m"
 					print "Current Bearing: " + str(currentBearing)
-					print "Desired Bearing: " + str(bearing(clat, clon,dlat, dlon))
+					print "Waypoint Bearing: " + str(bearing(clat, clon,dlat, dlon))
 					print "Turn Offset: " + str(turnOffset(currentBearing,bearing(clat,clon,dlat,dlon)))
 					print "UTC Time: ", gpsc.utc[11:-5]
 					print "GPS Error: "+ str(gpsc.fix.epx) + "m"
