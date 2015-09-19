@@ -58,7 +58,7 @@ def joyUp(channel):
 	if leftspeed < 3:
 		leftspeed+=1
 	if rightspeed < 3:
-		rightspeed+=1
+			rightspeed+=1
 	print'Left:',leftspeed, 'Right:',rightspeed
 	setSpeed()
 def joyDown(channel):
@@ -189,7 +189,6 @@ def setSpeed():
                 GPIO.output(23,1)
                 print "Set Left:",leftspeed
 
-
 #Function that returns the angle remaining to get to desired bearing.
 def turnOffset(chead,dhead):
 	if (chead > dhead):
@@ -232,8 +231,6 @@ def getBearing():
 		bearing += 2 * math.pi
 	return(math.degrees(bearing))
         
-
-
 #GPS Functions to get location, time, speed, etc
 class GpsController(threading.Thread):
 	def __init__(self):
@@ -267,7 +264,8 @@ def haversine(lat1, lon1, lat2, lon2):
 	a = sin(dLat/2)**2 + cos(lat1)*cos(lat2)*sin(dLon/2)**2
 	c = 2*asin(sqrt(a))
 	return R * c * 1000
-
+	
+#Function to calculate the bearing between two waypoints.
 def bearing(lat1, lon1, lat2, lon2):
 	rlat1 = math.radians(lat1)
 	rlat2 = math.radians(lat2)
@@ -284,12 +282,10 @@ if __name__ == '__main__':
 	print("Launching gpsd...")
 	os.system("sudo gpsd /dev/ttyAMA0 -F /var/run/gpsd.sock")
 	time.sleep(2)
-	# create the controller
 	gpsc = GpsController()
 	print "Loading waypoints from file"
 	#Add kml file loading into linked list here
 	try:
-	# start controller
 		gpsc.start()
 		while True:
 			#Replace true below with manual/auto switch check
@@ -323,16 +319,33 @@ if __name__ == '__main__':
 				#print "sats ", gpsc.satellites
 				time.sleep(1)
 				os.system('clear') 
+			#change to check automan switch	
+			while False:
+				motorsOff(0)
+				while(GPIO.input(AUTOMAN) ==0):
+					if(GPIO.input(22) ==0):
+						emergencyStop(0)
+					if(GPIO.input(17) ==0):
+						joyUp(0)
+					if(GPIO.input(3) ==0):
+						joyDown(0)
+					if(GPIO.input(2) ==0):
+						joyLeft(0)
+					if(GPIO.input(4) ==0):
+						joyRight(0)
+					time.sleep(.5)
+	
 
 #Ctrl C
 	except KeyboardInterrupt:
-		print "User cancelled"
+		print "\nKeyboard interrupt caught, cleaning GPIO and exiting."
 	except:
 		print "Unexpected error:", sys.exc_info()[0]
 		raise
 	finally:
+		print "Cleaning up GPIO"
+		GPIO.cleanup()
 		print "Stopping gps controller"
 		gpsc.stopController()
-#wait for the tread to finish
 		gpsc.join()
-	print "Done"
+		print "Done"
