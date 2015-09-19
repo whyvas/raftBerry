@@ -8,6 +8,7 @@
 
 from math import radians, sin, cos, sqrt, asin
 from gps import * 
+from pykml import parser
 import os 
 import smbus
 import time 
@@ -301,6 +302,31 @@ def bearing(lat1, lon1, lat2, lon2):
 	bd = math.degrees(b)
 	br,bn = divmod(bd+360,360) # the bearing remainder and final bearing
 	return bn
+	
+#Function to return the closest waypoint to current position
+def findClosest():
+        closestd = 10000000
+        closesti = 0
+        clon = 46.218538
+        clat = -76.126735
+        for x in range(0,len(root.Document.Folder.Placemark)):
+                lat = float(str(root.Document.Folder.Placemark[x].Point.coordinates).split(",")[0])
+                lon = float(str(root.Document.Folder.Placemark[x].Point.coordinates).split(",")[1])
+                dist = haversine(lat,lon,clat,clon)
+                print str(lat)+ " " +str(lon)+" "+str(dist)
+                if (closestd > dist):
+                        closesti = x
+                        closestd = dist
+        print "Closest index is: " + str(closesti)
+        print "Closest distance is: " + str(closestd)
+        return closesti
+
+#Read and parse KML file for GPS tour.
+root = parser.fromstring(open('LacLong.kml', 'r').read())
+
+
+
+
 
 if __name__ == '__main__':
 	#Launch GPSD
