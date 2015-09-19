@@ -1,3 +1,10 @@
+#raftBerry 
+#A python implementation of an autonomous, GPS controlled, electric floating dock. 
+#Use this code at your own risk, if you intend to build this device, please be careful, I am not responsible for
+#anything that happens if you use this code. The code doesn't do any kind of collision avoidance with land or 
+#other crafts. Use at your own risk.
+#see https://github.com/whyvas/raftBerry for updates, wiring diagrams and pictures.
+
 from math import radians, sin, cos, sqrt, asin
 from gps import * 
 import os 
@@ -26,7 +33,6 @@ JOYLEFT = 5
 JOYRIGHT = 4
 SHUTDOWN = 22
 
-
 #Setup GPIO input pins
 GPIO.setup(JOYLEFT, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(JOYDOWN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
@@ -34,7 +40,6 @@ GPIO.setup(JOYRIGHT, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(JOYUP, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(AUTOMAN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(SHUTDOWN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-
 
 #Setup GPIO output pins
 GPIO.setup(STARHIGH, GPIO.OUT, pull_up_down=GPIO.PUD_UP)
@@ -46,8 +51,8 @@ GPIO.setup(PORTMED, GPIO.OUT, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(PORTLOW, GPIO.OUT, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(PORTDIR, GPIO.OUT, pull_up_down=GPIO.PUD_UP)
 
-#Emergency shutdown
-def motorsOff(channel): #turn off all relays when exiting
+#Function to turn off all motors
+def motorsOff(channel):
 	GPIO.output(STARHIGH, 1)
 	GPIO.output(STARMED, 1)
 	GPIO.output(STARLOW, 1)
@@ -58,10 +63,11 @@ def motorsOff(channel): #turn off all relays when exiting
 	GPIO.output(PORTDIR, 1)
 	print "Motors off"
 
-def modeSelect(channel): #set autonomous or manual mode
-	print "Mode selected"
+#def modeSelect(channel): #set autonomous or manual mode
+#	print "Mode selected"
 
-def emergencyStop(channel): #set motors to off, cleanup GPIO and poweroff pi
+#Turn off motors, cleanup GPIO and shutdown the pi
+def emergencyStop(channel):
 	print "Emergency stop button pressed"
 	leftspeed=0
 	rightspeed=0
@@ -69,6 +75,7 @@ def emergencyStop(channel): #set motors to off, cleanup GPIO and poweroff pi
 	GPIO.cleanup()
 	os.system('shutdown now -h')
 	exit()
+#Read joystick inputs	
 def joyUp(channel):
 	global leftspeed,rightspeed
 	print "Joystick up"
@@ -92,6 +99,7 @@ def joyLeft(channel):
 	incRight()
 	print "Left:",leftspeed," Right:",rightspeed
 	setSpeed()
+
 #increase right by 1, if right = 7 and left doesn't = 0, decrease left by 1
 def joyRight(channel):
 	print "Joystick right"
@@ -206,7 +214,7 @@ def setSpeed():
                 GPIO.output(PORTDIR,1)
                 print "Set Left:",leftspeed
 
-#Function that returns the angle remaining to get to desired bearing.
+#Function that returns the angle remaining to get to desired bearing. Negative for left, positive for right.
 def turnOffset(chead,dhead):
 	if (chead > dhead):
 		if ((chead-dhead) >= 180):
