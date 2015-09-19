@@ -242,9 +242,9 @@ class GpsController(threading.Thread):
 		self.running = False
 	def run(self):
 		self.running = True
-	while self.running:
+		while self.running:
             # grab EACH set of gpsd info to clear the buffer
-		self.gpsd.next()
+			self.gpsd.next()
 	def stopController(self):
 		self.running = False
 	@property
