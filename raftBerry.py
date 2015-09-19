@@ -2,7 +2,8 @@
 #A python implementation of an autonomous, GPS controlled, electric floating dock. 
 #Use this code at your own risk, if you intend to build this device, please be careful, I am not responsible for
 #anything that happens if you use this code. The code doesn't do any kind of collision avoidance with land or 
-#other crafts. Use at your own risk.
+#other crafts. Use at your own risk. This code is pieced together from many sources. Please feel free to submit
+#corrections and improvements.
 #see https://github.com/whyvas/raftBerry for updates, wiring diagrams and pictures.
 
 from math import radians, sin, cos, sqrt, asin
@@ -340,7 +341,6 @@ if __name__ == '__main__':
 					print "2D Lock"
 				elif gpsc.fix.mode == 3:
 					print "3D Lock"
-				print "sats ", gpsc.satellites
 				print "============================================================"
 				time.sleep(1)
 				os.system('clear') 
