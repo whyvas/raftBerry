@@ -353,6 +353,7 @@ if __name__ == '__main__':
 					print "============================================================"
 					print "Current Lat: " +str(clat)
 					print "Current Lon: " +str(clon)
+					print "Waypoint index: " + str(waypoint)
 					print "Next Lat: " +str(dlat)
 					print "Next Lon: " +str(dlon)
 					print "Distance remaining: " + str(int(haversine(clat,clon,dlat,dlon)))+ "m"
