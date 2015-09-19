@@ -340,7 +340,7 @@ if __name__ == '__main__':
 			#Replace true below with manual/auto switch check
 			while True:
 				print "Entering autonomous mode, waiting for GPS lock to find closest waypoint in list"
-				while(gpsc.fix.mode!=3)
+				while(gpsc.fix.mode!=3):
 					time.sleep(1)
 				waypoint = findClosest()
 				while True:
