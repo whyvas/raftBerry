@@ -313,12 +313,12 @@ def findClosest():
                 lat = float(str(root.Document.Folder.Placemark[x].Point.coordinates).split(",")[0])
                 lon = float(str(root.Document.Folder.Placemark[x].Point.coordinates).split(",")[1])
                 dist = haversine(lat,lon,clat,clon)
-                print str(lat)+ " " +str(lon)+" "+str(dist)
+                #print str(lat)+ " " +str(lon)+" "+str(dist)
                 if (closestd > dist):
                         closesti = x
                         closestd = dist
-        print "Closest index is: " + str(closesti)
-        print "Closest distance is: " + str(closestd)
+        #print "Closest index is: " + str(closesti)
+        #print "Closest distance is: " + str(closestd)
         return closesti
 
 #Read and parse KML file for GPS tour.
@@ -339,36 +339,38 @@ if __name__ == '__main__':
 		while True:
 			#Replace true below with manual/auto switch check
 			while True:
-				dlat =  46.219173
-				dlon = -76.125144
-				currentBearing = getBearing()
-				clat = gpsc.fix.latitude
-				clon =  gpsc.fix.longitude
-				print "============================================================"
-				print "raftBerry Autonomous mode"
-				print "============================================================"
-				print "Current Lat: " +str(clat)
-				print "Current Lon: " +str(clon)
-				print "Next Lat: " +str(dlat)
-				print "Next Lon: " +str(dlon)
-				print "Distance remaining: " + str(int(haversine(clat,clon,dlat,dlon)))+ "m"
-				print "Current Bearing: " + str(currentBearing)
-				print "Desired Bearing: " + str(bearing(clat, clon,dlat, dlon))
-				print "Turn Offset: " + str(turnOffset(currentBearing,bearing(clat,clon,dlat,dlon)))
-				print "UTC Time: ", gpsc.utc[11:-5]
-				print "GPS Error: "+ str(gpsc.fix.epx) + "m"
-				if gpsc.fix.mode == 0:
-					print "GPS Status: No mode"
-				elif gpsc.fix.mode == 1:
-					print "GPS Status: No Fix"
-				elif gpsc.fix.mode == 2:
-					print "GPS Status: 2D Lock"
-				elif gpsc.fix.mode == 3:
-					print "GPS Status: 3D Lock"
-				print "Closest waypoint: " +str(findClosest())
-				print "============================================================"
-				time.sleep(1)
-				os.system('clear') 
+				#Replace true below with manual/auto switch check
+				while True:
+					dlat = 46.219173
+					dlon = -76.125144
+					currentBearing = getBearing()
+					clat = gpsc.fix.latitude
+					clon = gpsc.fix.longitude
+					print "============================================================"
+					print "raftBerry Autonomous mode"
+					print "============================================================"
+					print "Current Lat: " +str(clat)
+					print "Current Lon: " +str(clon)
+					print "Next Lat: " +str(dlat)
+					print "Next Lon: " +str(dlon)
+					print "Distance remaining: " + str(int(haversine(clat,clon,dlat,dlon)))+ "m"
+					print "Current Bearing: " + str(currentBearing)
+					print "Desired Bearing: " + str(bearing(clat, clon,dlat, dlon))
+					print "Turn Offset: " + str(turnOffset(currentBearing,bearing(clat,clon,dlat,dlon)))
+					print "UTC Time: ", gpsc.utc[11:-5]
+					print "GPS Error: "+ str(gpsc.fix.epx) + "m"
+					if gpsc.fix.mode == 0:
+						print "GPS Status: No mode"
+					elif gpsc.fix.mode == 1:
+						print "GPS Status: No Fix"
+					elif gpsc.fix.mode == 2:
+						print "GPS Status: 2D Lock"
+					elif gpsc.fix.mode == 3:
+						print "GPS Status: 3D Lock"
+					print "Closest waypoint: " +str(findClosest())
+					print "============================================================"
+					time.sleep(1)
+					os.system('clear') 
 			#change to check automan switch	
 			while False:
 				motorsOff(0)
