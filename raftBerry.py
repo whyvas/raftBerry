@@ -229,8 +229,8 @@ def getBearing():
 	z_out = read_word_2c(5) * scale
 	bearing  = math.atan2(y_out, x_out)
 	if (bearing < 0):
-                bearing += 2 * math.pi
-        return(math.degrees(bearing))
+		bearing += 2 * math.pi
+	return(math.degrees(bearing))
         
 
 
@@ -263,7 +263,7 @@ def haversine(lat1, lon1, lat2, lon2):
 	dLat = radians(lat2 - lat1)
 	dLon = radians(lon2 - lon1)
 	lat1 = radians(lat1)
- 	lat2 = radians(lat2)
+	lat2 = radians(lat2)
 	a = sin(dLat/2)**2 + cos(lat1)*cos(lat2)*sin(dLon/2)**2
 	c = 2*asin(sqrt(a))
 	return R * c * 1000
@@ -291,20 +291,20 @@ if __name__ == '__main__':
 		gpsc.start()
 		while True:
 			dlat =  46.219173
-                        dlon = -76.125144
-                        currentBearing = getBearing()
-                        clat = gpsc.fix.latitude
-                        clon =  gpsc.fix.longitude
-                        print "Current Lat: " +str(clat)
-                        print "Current Lon: " +str(clon)
-                        print "Next Lat: " +str(dlat)
-                        print "Next Lon: " +str(dlon)
-                        print "Distance remaining: " + str(int(haversine(clat,clon,dlat,dlon)))+ "m"
-                        print "Current Bearing: " + str(currentBearing)
-                        print "Desired Bearing: " + str(bearing(clat, clon,dlat, dlon))
-                        print "Turn Offset: " + str(turnOffset(currentBearing,bearing(clat,clon,dlat,dlon)))
-                        print "UTC Time: ", gpsc.utc[11:-5]
-                        print "GPS Error: "+ str(gpsc.fix.epx) + "m"
+			dlon = -76.125144
+			currentBearing = getBearing()
+			clat = gpsc.fix.latitude
+			clon =  gpsc.fix.longitude
+			print "Current Lat: " +str(clat)
+			print "Current Lon: " +str(clon)
+			print "Next Lat: " +str(dlat)
+			print "Next Lon: " +str(dlon)
+			print "Distance remaining: " + str(int(haversine(clat,clon,dlat,dlon)))+ "m"
+			print "Current Bearing: " + str(currentBearing)
+			print "Desired Bearing: " + str(bearing(clat, clon,dlat, dlon))
+			print "Turn Offset: " + str(turnOffset(currentBearing,bearing(clat,clon,dlat,dlon)))
+			print "UTC Time: ", gpsc.utc[11:-5]
+			print "GPS Error: "+ str(gpsc.fix.epx) + "m"
 			if gpsc.fix.mode == 0:
 				print "No mode"
 			elif gpsc.fix.mode == 1:
@@ -317,7 +317,7 @@ if __name__ == '__main__':
 			time.sleep(1)
 			os.system('clear') 
 
-    #Ctrl C
+#Ctrl C
 	except KeyboardInterrupt:
 		print "User cancelled"
 	except:
@@ -326,7 +326,6 @@ if __name__ == '__main__':
 	finally:
 		print "Stopping gps controller"
 		gpsc.stopController()
-        #wait for the tread to finish
+#wait for the tread to finish
 		gpsc.join()
-      
 	print "Done"
