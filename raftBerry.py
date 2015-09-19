@@ -334,13 +334,13 @@ if __name__ == '__main__':
 				print "UTC Time: ", gpsc.utc[11:-5]
 				print "GPS Error: "+ str(gpsc.fix.epx) + "m"
 				if gpsc.fix.mode == 0:
-					print "No mode"
+					print "GPS Status: No mode"
 				elif gpsc.fix.mode == 1:
-					print "No Fix"
+					print "GPS Status: No Fix"
 				elif gpsc.fix.mode == 2:
-					print "2D Lock"
+					print "GPS Status: 2D Lock"
 				elif gpsc.fix.mode == 3:
-					print "3D Lock"
+					print "GPS Status: 3D Lock"
 				print "============================================================"
 				time.sleep(1)
 				os.system('clear') 
