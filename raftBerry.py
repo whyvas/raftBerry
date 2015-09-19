@@ -332,17 +332,19 @@ time.sleep(2)
 #Main program loop
 if __name__ == '__main__':
 	gpsc = GpsController()
-	
+	waypoint = 0
 	#Add kml file loading into linked list here
 	try:
 		gpsc.start()
 		while True:
 			#Replace true below with manual/auto switch check
 			while True:
-				#Replace true below with manual/auto switch check
+				print "Entering autonomous mode, delaying 3s for GPS to settle to find closest waypoint in list"
+				time.sleep(3)
+				waypoint = findClosest()
 				while True:
-					dlat = 46.219173
-					dlon = -76.125144
+					dlat = float(str(root.Document.Folder.Placemark[waypoint].Point.coordinates).split(",")[0])
+					dlon = float(str(root.Document.Folder.Placemark[waypoint].Point.coordinates).split(",")[1])
 					currentBearing = getBearing()
 					clat = gpsc.fix.latitude
 					clon = gpsc.fix.longitude
