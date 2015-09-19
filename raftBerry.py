@@ -365,7 +365,7 @@ def autoSpeed(turn):
 	if (turn < -150 ):
 		leftspeed=-3
 		rightspeed=3
-
+	setSpeed()
 
 #Read and parse KML file for GPS tour.
 print "Loading waypoints from file"
@@ -396,6 +396,7 @@ if __name__ == '__main__':
 					currentBearing = getBearing()
 					clat = gpsc.fix.latitude
 					clon = gpsc.fix.longitude
+					distance = int(haversine(clat,clon,dlat,dlon)
 					print "============================================================"
 					print "raftBerry Autonomous mode"
 					print "============================================================"
@@ -404,7 +405,7 @@ if __name__ == '__main__':
 					print "Waypoint Lat: " +str(dlat)
 					print "Waypoint Lon: " +str(dlon)
 					print "Waypoint Index: " + str(waypoint)
-					print "Waypoint Distance: " + str(int(haversine(clat,clon,dlat,dlon)))+ "m"
+					print "Waypoint Distance: " + str(distance)+ "m"
 					print "Current Bearing: " + str(currentBearing)
 					print "Waypoint Bearing: " + str(bearing(clat, clon,dlat, dlon))
 					print "Turn Offset: " + str(turnOffset(currentBearing,bearing(clat,clon,dlat,dlon)))
@@ -422,7 +423,7 @@ if __name__ == '__main__':
 					print "Port motor speed: "+ str(leftspeed)
 					print "Starboard motor speed: "+str(rightspeed)
 					autoSpeed(turnOffset(currentBearing,bearing(clat,clon,dlat,dlon)))
-					if (int(haversine(clat,clon,dlat,dlon)) < 10):
+					if (distance) < 10):
 						if (waypoint < len(root.Document.Folder.Placemark)):
 							waypoint+=1
 						else:
