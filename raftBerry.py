@@ -300,7 +300,7 @@ if __name__ == '__main__':
 				clat = gpsc.fix.latitude
 				clon =  gpsc.fix.longitude
 				print "============================================================"
-				print "Autonomous mode
+				print "Autonomous mode"
 				print "============================================================"
 				print "Current Lat: " +str(clat)
 				print "Current Lon: " +str(clon)
