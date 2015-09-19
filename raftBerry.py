@@ -5,9 +5,192 @@ import smbus
 import time 
 import threading 
 import math
-
+import RPi.GPIO as GPIO
+GPIO.setmode(GPIO.BCM)
 bus = smbus.SMBus(1)
 address = 0x1e
+
+#Setup GPIO input pins
+GPIO.setup(2, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(3, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(4, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(27, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(22, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+#GPIO.setup(27, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
+#Setup GPIO output pins
+GPIO.setup(10, GPIO.OUT, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(9, GPIO.OUT, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(11, GPIO.OUT, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(7, GPIO.OUT, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(8, GPIO.OUT, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(25, GPIO.OUT, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(24, GPIO.OUT, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(23, GPIO.OUT, pull_up_down=GPIO.PUD_UP)
+
+#Emergency shutdown
+def motorsOff(channel): #turn off all relays when exiting
+	GPIO.output(10, 1)
+	GPIO.output(9, 1)
+	GPIO.output(11, 1)
+	GPIO.output(7, 1)
+	GPIO.output(8, 1)
+	GPIO.output(25, 1)
+	GPIO.output(24, 1)
+	GPIO.output(23, 1)
+	print "Motors off"
+
+def modeSelect(channel): #set autonomous or manual mode
+	print "Mode selected"
+
+def emergencyStop(channel): #set motors to off, cleanup GPIO and poweroff pi
+	print "Emergency stop button pressed"
+	leftspeed=0
+	rightspeed=0
+	motorsOff(0)
+	GPIO.cleanup()
+	os.system('shutdown now -h')
+	exit()
+def joyUp(channel):
+	global leftspeed,rightspeed
+	print "Joystick up"
+	if leftspeed < 3:
+		leftspeed+=1
+	if rightspeed < 3:
+		rightspeed+=1
+	print'Left:',leftspeed, 'Right:',rightspeed
+	setSpeed()
+def joyDown(channel):
+	global leftspeed, rightspeed
+	print "Joystick down"
+	if leftspeed > -3:
+		leftspeed-=1
+	if rightspeed > -3:
+		rightspeed-=1
+	print "Left:",leftspeed," Right:",rightspeed
+	setSpeed()
+def joyLeft(channel):
+	print "Joystick left"
+	incRight()
+	print "Left:",leftspeed," Right:",rightspeed
+	setSpeed()
+#increase right by 1, if right = 7 and left doesn't = 0, decrease left by 1
+
+def joyRight(channel):
+	print "Joystick right"
+	incLeft()
+	print "Left:",leftspeed," Right:",rightspeed
+	setSpeed()
+#increase left by 1, if left = 7 and right doesn't = 0, decrease right by 1
+
+def decLeft():
+	global leftspeed
+	if leftspeed > -3:
+		leftspeed-=1
+def incLeft():
+	global leftspeed, rightspeed
+	if leftspeed < 3:
+		leftspeed+=1
+	elif rightspeed > -3:
+		rightspeed-=1
+def incRight():
+        global rightspeed, leftspeed
+        if rightspeed < 3:
+                rightspeed+=1
+	elif leftspeed > -3:
+		leftspeed-=1
+def decRight():
+        global rightspeed
+        if rightspeed > -3:
+                rightspeed-=1
+def setSpeed():
+	global rightspeed, leftspeed
+	if rightspeed==3:
+		GPIO.output(10,0)
+                GPIO.output(9,0)
+                GPIO.output(11,0)
+                GPIO.output(7,0)
+		print "Set Right:",rightspeed
+	elif rightspeed==2:
+		GPIO.output(10,1)
+                GPIO.output(9,0)
+                GPIO.output(11,0)
+                GPIO.output(7,0)
+                print "Set Right:",rightspeed
+	elif rightspeed==1:
+                GPIO.output(10,1)
+                GPIO.output(9,1)
+                GPIO.output(11,0)
+                GPIO.output(7,0)
+                print "Set Right:",rightspeed
+	elif rightspeed==0:
+                GPIO.output(10,1)
+                GPIO.output(9,1)
+                GPIO.output(11,1)
+                GPIO.output(7,1)
+                print "Set Right:",rightspeed
+	elif rightspeed==-1:
+                GPIO.output(10,1)
+                GPIO.output(9,1)
+                GPIO.output(11,0)
+                GPIO.output(7,1)
+                print "Set Right:",rightspeed
+	elif rightspeed==-2:
+                GPIO.output(10,1)
+                GPIO.output(9,0)
+                GPIO.output(11,0)
+                GPIO.output(7,1)
+                print "Set Right:",rightspeed
+	elif rightspeed==-3:
+                GPIO.output(10,0)
+                GPIO.output(9,0)
+                GPIO.output(11,0)
+                GPIO.output(7,1)
+                print "Set Right:",rightspeed
+	if leftspeed==3:
+		GPIO.output(8,0)
+                GPIO.output(25,0)
+                GPIO.output(24,0)
+                GPIO.output(23,0)
+                print "Set Left:",leftspeed
+        elif leftspeed==2:
+                GPIO.output(8,1)
+                GPIO.output(25,0)
+                GPIO.output(24,0)
+                GPIO.output(23,0)
+                print "Set Left:",leftspeed
+        elif leftspeed==1:
+                GPIO.output(8,1)
+		GPIO.output(25,1)
+		GPIO.output(24,0)
+		GPIO.output(23,0)
+                print "Set Left:",leftspeed
+        elif leftspeed==0:
+                GPIO.output(8,1)
+		GPIO.output(25,1)
+		GPIO.output(24,1)
+		GPIO.output(23,1)
+                print "Set Left:",leftspeed
+	elif leftspeed==-1:
+		GPIO.output(8,1)
+                GPIO.output(25,1)
+                GPIO.output(24,0)
+                GPIO.output(23,1)
+                print "Set Left:",leftspeed
+        elif leftspeed==-2:
+                GPIO.output(8,1)
+                GPIO.output(25,0)
+                GPIO.output(24,0)
+                GPIO.output(23,1)
+                print "Set Left:",leftspeed
+        elif leftspeed==-3:
+		GPIO.output(8,0)
+                GPIO.output(25,0)
+                GPIO.output(24,0)
+                GPIO.output(23,1)
+                print "Set Left:",leftspeed
+
 
 #Function that returns the angle remaining to get to desired bearing.
 def turnOffset(chead,dhead):
