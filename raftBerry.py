@@ -343,8 +343,8 @@ if __name__ == '__main__':
 				time.sleep(3)
 				waypoint = findClosest()
 				while True:
-					dlat = float(str(root.Document.Folder.Placemark[waypoint].Point.coordinates).split(",")[0])
-					dlon = float(str(root.Document.Folder.Placemark[waypoint].Point.coordinates).split(",")[1])
+					dlat = float(str(root.Document.Folder.Placemark[waypoint].Point.coordinates).split(",")[1])
+					dlon = float(str(root.Document.Folder.Placemark[waypoint].Point.coordinates).split(",")[0])
 					currentBearing = getBearing()
 					clat = gpsc.fix.latitude
 					clon = gpsc.fix.longitude
