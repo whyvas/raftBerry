@@ -63,9 +63,6 @@ def motorsOff(channel):
 	GPIO.output(PORTDIR, 1)
 	print "Motors off"
 
-#def modeSelect(channel): #set autonomous or manual mode
-#	print "Mode selected"
-
 #Turn off motors, cleanup GPIO and shutdown the pi
 def emergencyStop(channel):
 	print "Emergency stop button pressed"
@@ -75,6 +72,7 @@ def emergencyStop(channel):
 	GPIO.cleanup()
 	os.system('shutdown now -h')
 	exit()
+
 #Read joystick inputs	
 def joyUp(channel):
 	global leftspeed,rightspeed
@@ -99,13 +97,12 @@ def joyLeft(channel):
 	incRight()
 	print "Left:",leftspeed," Right:",rightspeed
 	setSpeed()
-
-#increase right by 1, if right = 7 and left doesn't = 0, decrease left by 1
 def joyRight(channel):
 	print "Joystick right"
 	incLeft()
 	print "Left:",leftspeed," Right:",rightspeed
 	setSpeed()
+
 #increase left by 1, if left = 7 and right doesn't = 0, decrease right by 1
 def decLeft():
 	global leftspeed
@@ -127,6 +124,8 @@ def decRight():
         global rightspeed
         if rightspeed > -3:
                 rightspeed-=1
+                
+#Set relays for direction and speed.
 def setSpeed():
 	global rightspeed, leftspeed
 	if rightspeed==3:
@@ -279,7 +278,7 @@ class GpsController(threading.Thread):
 	def satellites(self):
 		return self.gpsd.satellites
 
-#Haversine function to return heading and distance between two coordinates
+#Haversine function to return distance between two coordinates
 def haversine(lat1, lon1, lat2, lon2):
 	R = 6372.8 # Earth radius in kilometers
 	dLat = radians(lat2 - lat1)
