@@ -396,7 +396,7 @@ if __name__ == '__main__':
 					currentBearing = getBearing()
 					clat = gpsc.fix.latitude
 					clon = gpsc.fix.longitude
-					distance = int(haversine(clat,clon,dlat,dlon)
+					distance = int(haversine(clat,clon,dlat,dlon))
 					print "============================================================"
 					print "raftBerry Autonomous mode"
 					print "============================================================"
