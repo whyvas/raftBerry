@@ -431,7 +431,7 @@ if __name__ == '__main__':
 							waypoint+=1
 						else:
 							print "At the end of the loop"
-							motorsOff()
+							motorsOff(0)
 					print "============================================================"
 					time.sleep(1)
 					os.system('clear') 
