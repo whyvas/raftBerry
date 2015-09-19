@@ -427,7 +427,7 @@ if __name__ == '__main__':
 					print "Starboard motor speed: "+str(rightspeed)
 					autoSpeed(turnOffset(currentBearing,bearing(clat,clon,dlat,dlon)))
 					if (distance < 10):
-						if (waypoint < len(root.Document.Folder.Placemark)):
+						if (waypoint < (len(root.Document.Folder.Placemark)-1)):
 							waypoint+=1
 						else:
 							print "At the end of the loop"
