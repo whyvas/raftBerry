@@ -429,7 +429,6 @@ if __name__ == '__main__':
 						else:
 							print "At the end of the loop"
 							motorsOff()
-						
 					print "============================================================"
 					time.sleep(1)
 					os.system('clear') 
