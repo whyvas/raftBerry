@@ -11,11 +11,11 @@ address = 0x1e
 
 #Function that returns the angle remaining to get to desired bearing.
 def turnOffset(chead,dhead):
-        if (chead > dhead):
-                if ((chead-dhead) >= 180):
-                        return(360-chead+dhead)
-                else:
-                        return((chead-dhead)*-1)
+	if (chead > dhead):
+		if ((chead-dhead) >= 180):
+			return(360-chead+dhead)
+		else:
+			return((chead-dhead)*-1)
         if (chead < dhead):
                 if ((dhead-chead) >= 180):
                         return((360-dhead+chead)*-1)
@@ -109,7 +109,7 @@ if __name__ == '__main__':
 	# start controller
 		gpsc.start()
 		while True:
-		 dlat =  46.219173
+			dlat =  46.219173
                         dlon = -76.125144
                         currentBearing = getBearing()
                         clat = gpsc.fix.latitude
