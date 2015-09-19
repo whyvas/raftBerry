@@ -9,18 +9,19 @@ import math
 bus = smbus.SMBus(1)
 address = 0x1e
 
-#Function that returns the shortest distance to turn given a current and desired bearing.
-def turnDirection(chead,dhead):
-	if (chead > dhead):
-		if ((chead-dhead) > 180):
-			return("Right")
-		else:
-			return("Left")
-	if (chead < dhead):
-		if ((dhead-chead) >= 180):
-			return("Left")
-		else:
-			return("Right")   
+#Function that returns the angle remaining to get to desired bearing.
+def turnOffset(chead,dhead):
+        if (chead > dhead):
+                if ((chead-dhead) >= 180):
+                        return(360-chead+dhead)
+                else:
+                        return((chead-dhead)*-1)
+        if (chead < dhead):
+                if ((dhead-chead) >= 180):
+                        return((360-dhead+chead)*-1)
+                else:
+                        return(dhead-chead)
+
 #Functions to read the bearing from the digital compass.
 def read_byte(adr):
     return bus.read_byte_data(address, adr)
@@ -108,22 +109,21 @@ if __name__ == '__main__':
 	# start controller
 		gpsc.start()
 		while True:
-			print "Current Lat: ", gpsc.fix.latitude
-			print "Current Lon: ", gpsc.fix.longitude
-			print "Next Lat: "
-			print "Next Lon: "
-			print "Distance remaining: " + str(int(haversine(gpsc.fix.latitude, gpsc.fix.longitude,gpsc.fix.latitude, -77)))+ "m"
-			print "Current Bearing: " + str(getBearing())
-			print "Desired Bearing: " + str(bearing(gpsc.fix.latitude, gpsc.fix.longitude,gpsc.fix.latitude, -77))
-			print "UTC Time: ", gpsc.utc[11:-5]
-			#print "altitude (m)", gpsc.fix.altitude
-			#print "eps ", gpsc.fix.eps
-			print "GPS Error: "+ str(gpsc.fix.epx) + "m"
-			#print "epv ", gpsc.fix.epv
-			#print "ept ", gpsc.gpsd.fix.ept
-			#print "speed (m/s) ", gpsc.fix.speed
-			#print "climb ", gpsc.fix.climb
-			#print "track ", gpsc.fix.track
+		 dlat =  46.219173
+                        dlon = -76.125144
+                        currentBearing = getBearing()
+                        clat = gpsc.fix.latitude
+                        clon =  gpsc.fix.longitude
+                        print "Current Lat: " +str(clat)
+                        print "Current Lon: " +str(clon)
+                        print "Next Lat: " +str(dlat)
+                        print "Next Lon: " +str(dlon)
+                        print "Distance remaining: " + str(int(haversine(clat,clon,dlat,dlon)))+ "m"
+                        print "Current Bearing: " + str(currentBearing)
+                        print "Desired Bearing: " + str(bearing(clat, clon,dlat, dlon))
+                        print "Turn Offset: " + str(turnOffset(currentBearing,bearing(clat,clon,dlat,dlon)))
+                        print "UTC Time: ", gpsc.utc[11:-5]
+                        print "GPS Error: "+ str(gpsc.fix.epx) + "m"
 			if gpsc.fix.mode == 0:
 				print "No mode"
 			elif gpsc.fix.mode == 1:
