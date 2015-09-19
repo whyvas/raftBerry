@@ -48,14 +48,14 @@ GPIO.setup(PORTDIR, GPIO.OUT, pull_up_down=GPIO.PUD_UP)
 
 #Emergency shutdown
 def motorsOff(channel): #turn off all relays when exiting
-	GPIO.output(10, 1)
-	GPIO.output(9, 1)
-	GPIO.output(11, 1)
-	GPIO.output(7, 1)
-	GPIO.output(8, 1)
-	GPIO.output(25, 1)
-	GPIO.output(24, 1)
-	GPIO.output(23, 1)
+	GPIO.output(STARHIGH, 1)
+	GPIO.output(STARMED, 1)
+	GPIO.output(STARLOW, 1)
+	GPIO.output(STARDIR, 1)
+	GPIO.output(PORTHIGH, 1)
+	GPIO.output(PORTMED, 1)
+	GPIO.output(PORTLOW, 1)
+	GPIO.output(PORTDIR, 1)
 	print "Motors off"
 
 def modeSelect(channel): #set autonomous or manual mode
@@ -122,88 +122,88 @@ def decRight():
 def setSpeed():
 	global rightspeed, leftspeed
 	if rightspeed==3:
-		GPIO.output(10,0)
-                GPIO.output(9,0)
-                GPIO.output(11,0)
-                GPIO.output(7,0)
+		GPIO.output(STARHIGH,0)
+                GPIO.output(STARMED,0)
+                GPIO.output(STARLOW,0)
+                GPIO.output(STARDIR,0)
 		print "Set Right:",rightspeed
 	elif rightspeed==2:
-		GPIO.output(10,1)
-                GPIO.output(9,0)
-                GPIO.output(11,0)
-                GPIO.output(7,0)
+		GPIO.output(STARHIGH,1)
+                GPIO.output(STARMED,0)
+                GPIO.output(STARLOW,0)
+                GPIO.output(STARDIR,0)
                 print "Set Right:",rightspeed
 	elif rightspeed==1:
-                GPIO.output(10,1)
-                GPIO.output(9,1)
-                GPIO.output(11,0)
-                GPIO.output(7,0)
+                GPIO.output(STARHIGH,1)
+                GPIO.output(STARMED,1)
+                GPIO.output(STARLOW,0)
+                GPIO.output(STARDIR,0)
                 print "Set Right:",rightspeed
 	elif rightspeed==0:
-                GPIO.output(10,1)
-                GPIO.output(9,1)
-                GPIO.output(11,1)
-                GPIO.output(7,1)
+                GPIO.output(STARHIGH,1)
+                GPIO.output(STARMED,1)
+                GPIO.output(STARLOW,1)
+                GPIO.output(STARDIR,1)
                 print "Set Right:",rightspeed
 	elif rightspeed==-1:
-                GPIO.output(10,1)
-                GPIO.output(9,1)
-                GPIO.output(11,0)
-                GPIO.output(7,1)
+                GPIO.output(STARHIGH,1)
+                GPIO.output(STARMED,1)
+                GPIO.output(STARLOW,0)
+                GPIO.output(STARDIR,1)
                 print "Set Right:",rightspeed
 	elif rightspeed==-2:
-                GPIO.output(10,1)
-                GPIO.output(9,0)
-                GPIO.output(11,0)
-                GPIO.output(7,1)
+                GPIO.output(STARHIGH,1)
+                GPIO.output(STARMED,0)
+                GPIO.output(STARLOW,0)
+                GPIO.output(STARDIR,1)
                 print "Set Right:",rightspeed
 	elif rightspeed==-3:
-                GPIO.output(10,0)
-                GPIO.output(9,0)
-                GPIO.output(11,0)
-                GPIO.output(7,1)
+                GPIO.output(STARHIGH,0)
+                GPIO.output(STARMED,0)
+                GPIO.output(STARLOW,0)
+                GPIO.output(STARDIR,1)
                 print "Set Right:",rightspeed
 	if leftspeed==3:
-		GPIO.output(8,0)
-                GPIO.output(25,0)
-                GPIO.output(24,0)
-                GPIO.output(23,0)
+		GPIO.output(PORTHIGH,0)
+                GPIO.output(PORTMED,0)
+                GPIO.output(PORTLOW,0)
+                GPIO.output(PORTDIR,0)
                 print "Set Left:",leftspeed
         elif leftspeed==2:
-                GPIO.output(8,1)
-                GPIO.output(25,0)
-                GPIO.output(24,0)
-                GPIO.output(23,0)
+                GPIO.output(PORTHIGH,1)
+                GPIO.output(PORTMED,0)
+                GPIO.output(PORTLOW,0)
+                GPIO.output(PORTDIR,0)
                 print "Set Left:",leftspeed
         elif leftspeed==1:
-                GPIO.output(8,1)
-		GPIO.output(25,1)
-		GPIO.output(24,0)
-		GPIO.output(23,0)
+                GPIO.output(PORTHIGH,1)
+		GPIO.output(PORTMED,1)
+		GPIO.output(PORTLOW,0)
+		GPIO.output(PORTDIR,0)
                 print "Set Left:",leftspeed
         elif leftspeed==0:
-                GPIO.output(8,1)
-		GPIO.output(25,1)
-		GPIO.output(24,1)
-		GPIO.output(23,1)
+                GPIO.output(PORTHIGH,1)
+		GPIO.output(PORTMED,1)
+		GPIO.output(PORTLOW,1)
+		GPIO.output(PORTDIR,1)
                 print "Set Left:",leftspeed
 	elif leftspeed==-1:
-		GPIO.output(8,1)
-                GPIO.output(25,1)
-                GPIO.output(24,0)
-                GPIO.output(23,1)
+		GPIO.output(PORTHIGH,1)
+                GPIO.output(PORTMED,1)
+                GPIO.output(PORTLOW,0)
+                GPIO.output(PORTDIR,1)
                 print "Set Left:",leftspeed
         elif leftspeed==-2:
-                GPIO.output(8,1)
-                GPIO.output(25,0)
-                GPIO.output(24,0)
-                GPIO.output(23,1)
+                GPIO.output(PORTHIGH,1)
+                GPIO.output(PORTMED,0)
+                GPIO.output(PORTLOW,0)
+                GPIO.output(PORTDIR,1)
                 print "Set Left:",leftspeed
         elif leftspeed==-3:
-		GPIO.output(8,0)
-                GPIO.output(25,0)
-                GPIO.output(24,0)
-                GPIO.output(23,1)
+		GPIO.output(PORTHIGH,0)
+                GPIO.output(PORTMED,0)
+                GPIO.output(PORTLOW,0)
+                GPIO.output(PORTDIR,1)
                 print "Set Left:",leftspeed
 
 #Function that returns the angle remaining to get to desired bearing.
@@ -340,15 +340,15 @@ if __name__ == '__main__':
 			while False:
 				motorsOff(0)
 				while(GPIO.input(AUTOMAN) ==0):
-					if(GPIO.input(22) ==0):
+					if(GPIO.input(SHUTDOWN) ==0):
 						emergencyStop(0)
-					if(GPIO.input(17) ==0):
+					if(GPIO.input(JOYUP) ==0):
 						joyUp(0)
-					if(GPIO.input(3) ==0):
+					if(GPIO.input(JOYDOWN) ==0):
 						joyDown(0)
-					if(GPIO.input(2) ==0):
+					if(GPIO.input(JOYLEFT) ==0):
 						joyLeft(0)
-					if(GPIO.input(4) ==0):
+					if(GPIO.input(JOYRIGHT) ==0):
 						joyRight(0)
 					time.sleep(.5)
 	
