@@ -323,6 +323,48 @@ def findClosest():
         #print "Closest index is: " + str(closesti)
         #print "Closest distance is: " + str(closestd)
         return closesti
+#Set the speed and direction based on turn offset
+def autoSpeed(turn):
+	if (turn > 150):
+		leftspeed=3
+		rightspeed=-3
+	if (turn > 120 and turn <= 150):
+		leftspeed=3
+		rightspeed=-2
+	if (turn > 90 and turn <= 120):
+		leftspeed=3
+		rightspeed=-1
+	if (turn > 60 and turn <= 90):
+		leftspeed=3
+		rightspeed=0
+	if (turn > 30 and turn <= 60):
+		leftspeed=3
+		rightspeed=1
+	if (turn > 10 and turn <= 30):
+		leftspeed=3
+		rightspeed=2
+	if (turn > -10 and turn <= 10):
+		leftspeed=3
+		rightspeed=3
+	if (turn > -30 and turn <= -10):
+		leftspeed=2
+		rightspeed=3
+	if (turn > -60 and turn <= -30):
+		leftspeed=1
+		rightspeed=3
+	if (turn > -90 and turn <= -60):
+		leftspeed=0
+		rightspeed=3
+	if (turn > -120 and turn <= -90):
+		leftspeed=-1
+		rightspeed=3
+	if (turn > -150 and turn <= -120):
+		leftspeed=-2
+		rightspeed=3
+	if (turn > -150 ):
+		leftspeed=-3
+		rightspeed=3
+
 
 #Read and parse KML file for GPS tour.
 print "Loading waypoints from file"
@@ -378,7 +420,7 @@ if __name__ == '__main__':
 					print "Closest waypoint: " +str(findClosest())
 					print "Port motor speed: "+ str(leftspeed)
 					print "Starboard motor speed: "+str(rightspeed)
-					#autoSpeed()
+					autoSpeed(turnOffset(currentBearing,bearing(clat,clon,dlat,dlon)))
 					if (int(haversine(clat,clon,dlat,dlon)) < 10):
 						if (waypoint < len(root.Document.Folder.Placemark)):
 							waypoint+=1
