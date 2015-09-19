@@ -436,6 +436,7 @@ if __name__ == '__main__':
 							waypoint+=1
 						else:
 							print "At the end of the loop"
+							print "Please switch to manual control"
 							motorsOff(0)
 					print "============================================================"
 					time.sleep(1)
