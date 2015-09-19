@@ -313,7 +313,7 @@ if __name__ == '__main__':
 				clat = gpsc.fix.latitude
 				clon =  gpsc.fix.longitude
 				print "============================================================"
-				print "Autonomous mode"
+				print "raftBerry Autonomous mode"
 				print "============================================================"
 				print "Current Lat: " +str(clat)
 				print "Current Lon: " +str(clon)
@@ -333,7 +333,8 @@ if __name__ == '__main__':
 					print "2D Lock"
 				elif gpsc.fix.mode == 3:
 					print "3D Lock"
-				#print "sats ", gpsc.satellites
+				print "sats ", gpsc.satellites
+				print "============================================================"
 				time.sleep(1)
 				os.system('clear') 
 			#change to check automan switch	
