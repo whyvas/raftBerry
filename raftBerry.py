@@ -11,8 +11,8 @@ bus = smbus.SMBus(1)
 address = 0x1e
 
 #Setup GPIO input pins
-GPIO.setup(2, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-GPIO.setup(3, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+#GPIO.setup(2, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+#GPIO.setup(3, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(4, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(27, GPIO.IN, pull_up_down=GPIO.PUD_UP)
