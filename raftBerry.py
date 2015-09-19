@@ -373,6 +373,8 @@ if __name__ == '__main__':
 					elif gpsc.fix.mode == 3:
 						print "GPS Status: 3D Lock"
 					print "Closest waypoint: " +str(findClosest())
+					print "Port motor speed: "+ str(leftspeed)
+					print "Starboard motor speed: "+str(rightspeed)
 					#autoSpeed()
 					if (int(haversine(clat,clon,dlat,dlon)) < 10):
 						if (waypoint < len(root.Document.Folder.Placemark)):
