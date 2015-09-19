@@ -371,6 +371,14 @@ if __name__ == '__main__':
 					elif gpsc.fix.mode == 3:
 						print "GPS Status: 3D Lock"
 					print "Closest waypoint: " +str(findClosest())
+					autoSpeed()
+					if (int(haversine(clat,clon,dlat,dlon)) < 10):
+						if (waypoint < len(root.Document.Folder.Placemark)):
+							waypoint+=1
+						else:
+							print "At the end of the loop"
+							motorsOff()
+						
 					print "============================================================"
 					time.sleep(1)
 					os.system('clear') 
