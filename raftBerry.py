@@ -18,6 +18,8 @@ import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
 bus = smbus.SMBus(1)
 address = 0x1e
+leftspeed = 0
+rightspeed = 0
 
 #GPIO pin definitions
 AUTOMAN = 27
