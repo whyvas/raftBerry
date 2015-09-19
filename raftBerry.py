@@ -362,7 +362,7 @@ def autoSpeed(turn):
 	if (turn > -150 and turn <= -120):
 		leftspeed=-2
 		rightspeed=3
-	if (turn > -150 ):
+	if (turn < -150 ):
 		leftspeed=-3
 		rightspeed=3
 
