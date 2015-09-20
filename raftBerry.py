@@ -322,7 +322,7 @@ def findClosest():
                         closestd = dist
         print "Closest index is: " + str(closesti)
         print "Closest distance is: " + str(closestd)
-        time.delay(8)
+        time.sleep(8)
         return closesti
 #Set the speed and direction based on turn offset
 def autoSpeed(turn):
