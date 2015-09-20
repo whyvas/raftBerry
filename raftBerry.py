@@ -389,13 +389,13 @@ if __name__ == '__main__':
 		gpsc.start()
 		while True:
 			#Replace true below with manual/auto switch check
-			while True:
+			while GPIO.input(AUTOMAN):
 				print "Entering autonomous mode, waiting for GPS lock to find closest waypoint in list"
 				while(gpsc.fix.mode!=3):
 					time.sleep(1)
 				waypoint = findClosest()
 				os.system('clear')
-				while True:
+				while GPIO.input(AUTOMAN):
 					dlat = float(str(root.Document.Folder.Placemark[waypoint].Point.coordinates).split(",")[1])
 					dlon = float(str(root.Document.Folder.Placemark[waypoint].Point.coordinates).split(",")[0])
 					currentBearing = getBearing()
@@ -441,7 +441,7 @@ if __name__ == '__main__':
 					if(GPIO.input(SHUTDOWN) ==0):
 						emergencyStop(0)
 			#change to check automan switch	
-			while False:
+			while (GPIO.input(AUTOMAN)==0):
 				motorsOff(0)
 				while(GPIO.input(AUTOMAN) ==0):
 					if(GPIO.input(SHUTDOWN) ==0):
