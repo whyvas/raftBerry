@@ -23,7 +23,7 @@ rightspeed = 0
 
 #GPIO pin definitions
 AUTOMAN = 27
-PORTDIR = 23
+PORTDIR = 24
 PORTLOW = 13
 PORTMED = 25
 PORTHIGH = 8
