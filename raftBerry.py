@@ -374,7 +374,7 @@ def autoSpeed(turn):
 
 #Read and parse KML file for GPS tour.
 print "Loading waypoints from file"
-root = parser.fromstring(open('LacLong.kml', 'r').read())
+root = parser.fromstring(open('/home/pi/piDock/LacLong.kml', 'r').read())
 #Launch GPSD
 print("Launching gpsd...")
 os.system("sudo gpsd /dev/ttyAMA0 -F /var/run/gpsd.sock")
