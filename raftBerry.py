@@ -316,7 +316,7 @@ def findClosest():
                 lat = float(str(root.Document.Folder.Placemark[x].Point.coordinates).split(",")[0])
                 lon = float(str(root.Document.Folder.Placemark[x].Point.coordinates).split(",")[1])
                 dist = haversine(lat,lon,clat,clon)
-                #print str(lat)+ " " +str(lon)+" "+str(dist)
+                print str(lat)+ " " +str(lon)+" "+str(dist)
                 if (closestd > dist):
                         closesti = x
                         closestd = dist
