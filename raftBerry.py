@@ -447,7 +447,9 @@ if __name__ == '__main__':
 				print "============================================================"
 				print "raftBerry manual mode"
 				print "============================================================"
-					
+				leftspeed = 0
+				rightspeed = 0
+				setSpeed()
 				while(GPIO.input(AUTOMAN) ==0):
 					if(GPIO.input(SHUTDOWN) ==0):
 						emergencyStop(0)
