@@ -316,13 +316,12 @@ def findClosest():
                 lat = float(str(root.Document.Folder.Placemark[x].Point.coordinates).split(",")[0])
                 lon = float(str(root.Document.Folder.Placemark[x].Point.coordinates).split(",")[1])
                 dist = haversine(lat,lon,clat,clon)
-                print str(lat)+ " " +str(lon)+" "+str(dist)
+        #       print str(lat)+ " " +str(lon)+" "+str(dist)
                 if (closestd > dist):
                         closesti = x
                         closestd = dist
-        print "Closest index is: " + str(closesti)
-        print "Closest distance is: " + str(closestd)
-        time.sleep(8)
+        #print "Closest index is: " + str(closesti)
+        #print "Closest distance is: " + str(closestd)
         return closesti
 #Set the speed and direction based on turn offset
 def autoSpeed(turn):
