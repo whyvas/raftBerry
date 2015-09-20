@@ -57,14 +57,14 @@ GPIO.setup(PORTDIR, GPIO.OUT, pull_up_down=GPIO.PUD_UP)
 
 #Function to turn off all motors
 def motorsOff(channel):
-	GPIO.output(STARHIGH, 1)
-	GPIO.output(STARMED, 1)
-	GPIO.output(STARLOW, 1)
-	GPIO.output(STARDIR, 1)
-	GPIO.output(PORTHIGH, 1)
-	GPIO.output(PORTMED, 1)
-	GPIO.output(PORTLOW, 1)
-	GPIO.output(PORTDIR, 1)
+	GPIO.output(STARHIGH, 0)
+	GPIO.output(STARMED, 0)
+	GPIO.output(STARLOW, 0)
+	GPIO.output(STARDIR, 0)
+	GPIO.output(PORTHIGH, 0)
+	GPIO.output(PORTMED, 0)
+	GPIO.output(PORTLOW, 0)
+	GPIO.output(PORTDIR, 0)
 	print "Motors off"
 
 #Turn off motors, cleanup GPIO and shutdown the pi
