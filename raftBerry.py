@@ -444,7 +444,7 @@ if __name__ == '__main__':
 			#change to check automan switch	
 			while (GPIO.input(AUTOMAN)==1):
 				motorsOff(0)
-				while(GPIO.input(AUTOMAN) ==0):
+				while(GPIO.input(AUTOMAN) ==1):
 					if(GPIO.input(SHUTDOWN) ==0):
 						emergencyStop(0)
 					if(GPIO.input(JOYUP) ==0):
