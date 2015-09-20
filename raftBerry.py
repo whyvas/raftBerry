@@ -320,8 +320,9 @@ def findClosest():
                 if (closestd > dist):
                         closesti = x
                         closestd = dist
-        #print "Closest index is: " + str(closesti)
-        #print "Closest distance is: " + str(closestd)
+        print "Closest index is: " + str(closesti)
+        print "Closest distance is: " + str(closestd)
+        time.delay(8)
         return closesti
 #Set the speed and direction based on turn offset
 def autoSpeed(turn):
@@ -436,7 +437,6 @@ if __name__ == '__main__':
 							print "Please switch to manual control"
 							motorsOff(0)
 					print "============================================================"
-					print GPIO.input(AUTOMAN)
 					time.sleep(1)
 					os.system('clear')
 					if(GPIO.input(SHUTDOWN) ==0):
