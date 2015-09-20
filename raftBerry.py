@@ -389,7 +389,7 @@ if __name__ == '__main__':
 		gpsc.start()
 		while True:
 			#Replace true below with manual/auto switch check
-			while GPIO.input(AUTOMAN):
+			while GPIO.input(AUTOMAN)==0:
 				print "Entering autonomous mode, waiting for GPS lock to find closest waypoint in list"
 				while(gpsc.fix.mode!=3):
 					time.sleep(1)
@@ -442,7 +442,7 @@ if __name__ == '__main__':
 					if(GPIO.input(SHUTDOWN) ==0):
 						emergencyStop(0)
 			#change to check automan switch	
-			while (GPIO.input(AUTOMAN)==0):
+			while (GPIO.input(AUTOMAN)==1):
 				motorsOff(0)
 				while(GPIO.input(AUTOMAN) ==0):
 					if(GPIO.input(SHUTDOWN) ==0):
