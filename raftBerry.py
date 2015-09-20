@@ -436,8 +436,11 @@ if __name__ == '__main__':
 							print "Please switch to manual control"
 							motorsOff(0)
 					print "============================================================"
+					print GPIO.input(AUTOMAN)
 					time.sleep(1)
-					os.system('clear') 
+					os.system('clear')
+					if(GPIO.input(SHUTDOWN) ==0):
+						emergencyStop(0)
 			#change to check automan switch	
 			while False:
 				motorsOff(0)
