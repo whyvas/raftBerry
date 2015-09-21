@@ -1,7 +1,7 @@
 # raftBerry
 The raftBerry is my attempt to create a fully autonomous, raspberry pi controlled electric floating dock to drive us around a lake using Google Maps GPS waypoints. The dock has a control station with the following:
 
-Hardware:
+##Hardware:
 
 10ft x 10ft wooden floating dock w/ 6 x 50 gallon barrels.
 
@@ -39,7 +39,8 @@ Arcade momentary pushbutton for shutdown.
 
 8 x RGB leds + custom 3D printed holder for motor speed/direction display.
 
-Software:
+##Software:
+
 The code is entirely written in python. Various code snippets have been stolen from the internet. I will work to provide credit to the original authors in the near future. I've installed it on the debian wheezy version: x on a raspberry pi 2 but I suspect it would work with other devices. 
 
 The packages required from a fresh install are: 
