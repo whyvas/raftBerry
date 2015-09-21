@@ -41,7 +41,7 @@ Arcade momentary pushbutton for shutdown.
 
 ##Software:
 
-The code is entirely written in python. Various code snippets have been stolen from the internet. I will work to provide credit to the original authors in the near future. I've installed it on the debian wheezy version: x on a raspberry pi 2 but I suspect it would work with other devices. 
+The code is entirely written in python. Various code snippets have been pieced together from the internet. I've installed it on the debian wheezy version: x on a raspberry pi 2 but I suspect it would work with other devices. 
 
 The packages required from a fresh install are: 
 ###*****Add packages
