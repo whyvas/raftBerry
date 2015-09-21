@@ -44,9 +44,11 @@ Arcade momentary pushbutton for shutdown.
 The code is entirely written in python. Various code snippets have been stolen from the internet. I will work to provide credit to the original authors in the near future. I've installed it on the debian wheezy version: x on a raspberry pi 2 but I suspect it would work with other devices. 
 
 The packages required from a fresh install are: 
-*****Add packages
+###*****Add packages
+
 PIP packages:
-Serial port configurations:
+
+###*****Add packages
 
 The software launches the required gpsd daemon and uses the GPIO so it requires sudo or root to run.
 
