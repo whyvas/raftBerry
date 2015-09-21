@@ -1,9 +1,12 @@
 # piDock
-The Raspberry pi Autonomous Dock or RAD. is my attempt to create a fully autonomous, raspberry pi controlled electric floating dock to drive us around a lake using Google Maps GPS waypoints. The dock has a control station with 
+The raftBerry is my attempt to create a fully autonomous, raspberry pi controlled electric floating dock to drive us around a lake using Google Maps GPS waypoints. The dock has a control station with the following:
 
 Hardware:
+
 10ft x 10ft wooden floating dock w/ 6 x 50 gallon barrels.
+
 2 x Minn Kota Endura C2 trolling motors (30lbs of thrust each) removed head.
+
 10 x 12v automotive relays.
 8 channel sainsmart relay board.
 Raspberry pi 2.
