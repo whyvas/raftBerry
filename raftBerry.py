@@ -389,7 +389,7 @@ if __name__ == '__main__':
 		gpsc.start()
 		while True:
 			#Replace true below with manual/auto switch check
-			while GPIO.input(AUTOMAN):
+			if GPIO.input(AUTOMAN):
 				print "Entering autonomous mode, waiting for GPS lock to find closest waypoint in list"
 				while(gpsc.fix.mode!=3):
 					time.sleep(1)
@@ -442,7 +442,7 @@ if __name__ == '__main__':
 					if(GPIO.input(SHUTDOWN) ==0):
 						emergencyStop(0)
 			#change to check automan switch	
-			while (GPIO.input(AUTOMAN)==0):
+			if !GPIO.input(AUTOMAN):
 				motorsOff(0)
 				print "============================================================"
 				print "raftBerry manual mode"
@@ -450,7 +450,7 @@ if __name__ == '__main__':
 				leftspeed = 0
 				rightspeed = 0
 				setSpeed()
-				while(GPIO.input(AUTOMAN) ==0):
+				while !GPIO.input(AUTOMAN):
 					if(GPIO.input(SHUTDOWN) ==0):
 						emergencyStop(0)
 					if(GPIO.input(JOYUP) ==0):
